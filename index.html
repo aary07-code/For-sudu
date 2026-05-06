@@ -1,169 +1,217 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>For You ❤️</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: radial-gradient(circle at top, #1e1e2f, #0f0f1a);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      overflow: hidden;
-      color: white;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You ❤️</title>
 
-    .card {
-      background: rgba(255,255,255,0.08);
-      backdrop-filter: blur(15px);
-      padding: 35px;
-      border-radius: 25px;
-      box-shadow: 0 0 40px rgba(255, 105, 180, 0.4);
-      text-align: center;
-      max-width: 360px;
-      animation: fadeIn 1.2s ease;
-    }
+<style>
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: radial-gradient(circle at top, #1e1e2f, #0f0f1a);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+  color: white;
+}
 
-    h1 {
-      margin-bottom: 10px;
-      font-weight: 700;
-      color: #ff9acb;
-    }
+.card {
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(15px);
+  padding: 35px;
+  border-radius: 25px;
+  box-shadow: 0 0 40px rgba(255,105,180,0.4);
+  text-align: center;
+  max-width: 360px;
+}
 
-    p {
-      font-size: 15px;
-      line-height: 1.6;
-      color: #f1f1f1;
-    }
+h1 { color: #ff9acb; }
 
-    .btn {
-      margin: 10px;
-      padding: 12px 22px;
-      border: none;
-      border-radius: 12px;
-      font-size: 15px;
-      cursor: pointer;
-      transition: 0.3s ease;
-    }
+p { font-size: 15px; line-height: 1.6; }
 
-    .yes {
-      background: linear-gradient(45deg, #ff6ec4, #7873f5);
-      color: white;
-      box-shadow: 0 0 15px rgba(255,110,196,0.6);
-    }
+.btn {
+  margin: 10px;
+  padding: 12px 22px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+}
 
-    .yes:hover {
-      transform: scale(1.1);
-      box-shadow: 0 0 25px rgba(255,110,196,1);
-    }
+.yes { background: linear-gradient(45deg,#ff6ec4,#7873f5); color:white; }
+.angry { background:#ff4757; color:white; }
 
-    .angry {
-      background: #ff4757;
-      color: white;
-      position: relative;
-    }
+.heart {
+  position:absolute;
+  font-size:18px;
+  animation:float 6s linear infinite;
+  opacity:0.5;
+}
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+@keyframes float {
+  0% { transform:translateY(100vh);} 
+  100% { transform:translateY(-10vh);} 
+}
 
-    .heart {
-      position: absolute;
-      color: rgba(255,255,255,0.15);
-      animation: float 8s linear infinite;
-      font-size: 18px;
-    }
+.explosion {
+  position:fixed;
+  font-size:22px;
+  animation:explode 1s forwards;
+}
 
-    @keyframes float {
-      0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
-      50% { opacity: 1; }
-      100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
-    }
+@keyframes explode {
+  0% {opacity:1;} 
+  100% {transform:translate(var(--x),var(--y));opacity:0;} 
+}
 
-    .explosion-heart {
-      position: fixed;
-      font-size: 22px;
-      pointer-events: none;
-      animation: explode 1s ease-out forwards;
-    }
+.final-screen {
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:black;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  font-size:22px;
+  opacity:0;
+  pointer-events:none;
+  transition:1s;
+}
 
-    @keyframes explode {
-      0% { transform: scale(0.5); opacity: 1; }
-      100% { transform: translate(var(--x), var(--y)) scale(2); opacity: 0; }
-    }
+.final-screen.show {
+  opacity:1;
+  pointer-events:auto;
+}
 
-  </style>
+.glow {
+  color:#ff9acb;
+  animation:glow 1.5s infinite alternate;
+}
+
+@keyframes glow {
+  from { text-shadow:0 0 10px #ff9acb; }
+  to { text-shadow:0 0 25px #ff6ec4; }
+}
+</style>
 </head>
+
 <body>
 
-<script>
-  for (let i = 0; i < 25; i++) {
-    let heart = document.createElement("div");
-    heart.className = "heart";
-    heart.innerHTML = "❤️";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.animationDuration = (Math.random() * 4 + 4) + "s";
-    document.body.appendChild(heart);
-  }
-</script>
-
 <div class="card">
-  <h1>Hey Sudikshaa ❤️</h1>
-  <p id="message">
-    Yesterday didn’t feel right...<br><br>
-    Not because I slept early, but because I didn’t say goodnight to you.<br><br>
-    Talking to you has quietly become my favorite part of the day.<br><br>
-    Can I make it right today? ✨
-  </p>
+<h1 id="title"></h1>
+<p id="msg"></p>
 
-  <button class="btn yes" onclick="happy()">Okay 😊</button>
-  <button class="btn angry" id="angryBtn" onmouseover="moveButton()">Still Angry 😤</button>
+<button class="btn yes" onclick="yesClick()">Okay 😊</button>
+
+<button class="btn angry" id="angryBtn"
+onmouseover="escape()"
+ontouchstart="escape()">
+Still Angry 😤
+</button>
+
 </div>
 
+<div class="final-screen" id="finalScreen">
+  <div class="glow">I really mean it ❤️</div>
+  <div style="margin-top:10px">You matter to me a lot</div>
+</div>
+
+<audio id="music" src="https://www.bensound.com/bensound-music/bensound-romantic.mp3"></audio>
+
 <script>
-  function happy() {
-    document.getElementById('message').innerHTML = "You just made my day ❤️<br><br>I promise I’ll make it up to you properly 😌<br><br><b style='font-size:18px;'>I love you suwo ❤️</b>";
-    heartExplosion();
+
+// typing text
+const titleText="Hey Sudiksha ❤️";
+
+const msgText="Yesterday didn’t feel right...\n\nI slept without letting you know, and I’m really sorry for that.\n\nIt wasn’t right to just disappear like that.\n\nTalking to you has quietly become my favorite part of the day.\n\nCan I make it right today? ✨";
+
+let i=0;
+function typeTitle(){
+ if(i<titleText.length){
+  document.getElementById("title").innerHTML+=titleText[i];
+  i++; setTimeout(typeTitle,60);
+ } else typeMsg();
+}
+
+let j=0;
+function typeMsg(){
+ if(j<msgText.length){
+  let c=msgText[j]==="\n"?"<br>":msgText[j];
+  document.getElementById("msg").innerHTML+=c;
+  j++; setTimeout(typeMsg,30);
+ }
+}
+
+// floating hearts
+for(let i=0;i<20;i++){
+ let h=document.createElement("div");
+ h.className="heart";
+ h.innerHTML="❤️";
+ h.style.left=Math.random()*100+"vw";
+ document.body.appendChild(h);
+}
+
+// yes click
+function yesClick(){
+ document.getElementById("msg").innerHTML="";
+ let text="That smile means everything to me ❤️\n\nI really didn’t like how yesterday ended…\n\nI’ll make sure it doesn’t happen again 😌\n\nI love you, suwo ❤️";
+
+ let k=0;
+ function typeFinal(){
+  if(k<text.length){
+   let c=text[k]==="\n"?"<br>":text[k];
+   document.getElementById("msg").innerHTML+=c;
+   k++; setTimeout(typeFinal,40);
   }
+ }
 
-  function moveButton() {
-    let btn = document.getElementById('angryBtn');
-    let x = Math.random() * 200 - 100;
-    let y = Math.random() * 200 - 100;
-    btn.style.transform = `translate(${x}px, ${y}px)`;
-  }
+ typeFinal();
+ explosion();
+ document.getElementById("music").play();
 
-  function heartExplosion() {
-    for (let i = 0; i < 40; i++) {
-      let heart = document.createElement("div");
-      heart.className = "explosion-heart";
-      heart.innerHTML = "❤️";
+ setTimeout(()=>{
+  document.getElementById("finalScreen").classList.add("show");
+ },2500);
+}
 
-      let angle = Math.random() * 2 * Math.PI;
-      let distance = Math.random() * 250 + 50;
+// impossible angry button 😈
+function escape(){
+  const btn = document.getElementById("angryBtn");
 
-      let x = Math.cos(angle) * distance + 'px';
-      let y = Math.sin(angle) * distance + 'px';
+  let x = Math.random() * (window.innerWidth - 100);
+  let y = Math.random() * (window.innerHeight - 50);
 
-      heart.style.setProperty('--x', x);
-      heart.style.setProperty('--y', y);
+  btn.style.position = "fixed";
+  btn.style.left = x + "px";
+  btn.style.top = y + "px";
 
-      heart.style.left = "50%";
-      heart.style.top = "50%";
+  btn.style.transform = "rotate(" + (Math.random()*40 - 20) + "deg)";
+}
 
-      document.body.appendChild(heart);
+// heart explosion
+function explosion(){
+ for(let i=0;i<30;i++){
+  let h=document.createElement("div");
+  h.className="explosion";
+  h.innerHTML="❤️";
+  let a=Math.random()*2*Math.PI;
+  let d=Math.random()*200;
+  h.style.setProperty('--x',Math.cos(a)*d+'px');
+  h.style.setProperty('--y',Math.sin(a)*d+'px');
+  h.style.left="50%";
+  h.style.top="50%";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),1000);
+ }
+}
 
-      setTimeout(() => {
-        heart.remove();
-      }, 1000);
-    }
-  }
+typeTitle();
+
 </script>
 
 </body>
